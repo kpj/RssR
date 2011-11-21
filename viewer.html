@@ -1,0 +1,59 @@
+<html>
+<head>
+	<style type="text/css">
+		* {
+			margin:0;
+			padding:0;
+		}
+		#nots {
+			border:2px solid black;
+			height:10%;
+		}
+		#left {
+			float:left;
+			border:2px solid black;
+			width:33%;
+			height:80%;
+			overflow: scroll;
+		}
+		#right {
+			float:left;
+			border:2px solid black;
+			width:66%;
+			height:80%;
+			overflow:scroll;
+		}
+		#feeds, #content {
+			height:50%;
+			overflow:scroll;
+		}
+		#feeds {
+			border-bottom:4px solid black;
+		}
+		#settings {
+			clear:both;
+			border:2px solid black;
+			height:10%;
+		}
+</style>
+<script type="text/javascript" src="/static/jql.js"></script>
+<script style="text/javascript" src="reader.js"></script>
+</head>
+
+<body>
+	<div id="nots">NOTS</div>
+	<div id="left">
+		<div id="subs">SUBS</div>
+	</div>
+	<div id="right">
+		<div id="feeds">
+			FEEDS
+		</div>                
+		<div id="content">
+			CONTENT
+		</div>
+	</div>
+	<div id="settings"><input type="button" value="Reload" onclick='javascript:tick()'></div>
+</body>
+
+</html>
