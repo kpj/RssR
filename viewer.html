@@ -24,8 +24,13 @@
 			overflow:scroll;
 		}
 		#feeds, #content {
-			height:50%;
 			overflow:scroll;
+		}
+		#feeds {
+			height:25%%;
+		}
+		#content {
+			height:75%;
 		}
 		#feeds {
 			border-bottom:4px solid black;
@@ -35,7 +40,7 @@
 			border:2px solid black;
 		}
 
-		.list {
+		.listSubs {
 			background-color: #64FE2E;
 			-webkit-transition: all 0.5s ease-in-out;
 			-moz-transition: all 0.5s ease-in-out;
@@ -43,8 +48,29 @@
 			-ms-transition: all 0.5s ease-in-out;
 			transition: all 0.5s ease-in-out;
 		}
-		.list:hover {
+		.listFeeds {
+			background-color: #64FE2E;
+			-webkit-transition: all 0.5s ease-in-out;
+			-moz-transition: all 0.5s ease-in-out;
+			-o-transition: all 0.5s ease-in-out;
+			-ms-transition: all 0.5s ease-in-out;
+			transition: all 0.5s ease-in-out;
+		}
+		.listSubs:hover {
 			background-color: #0B610B;
+		}
+		.listFeeds:hover {
+			background-color: #0B610B;
+		}
+
+		#special {
+			position:absolute;
+			top:30%;
+			left:30%;
+			border-style:dotted;
+			border-radius:150px;
+			display:none;
+			background-color:#9AFE2E;
 		}
 </style>
 <script type="text/javascript" src="/static/jql.js"></script>
@@ -67,6 +93,7 @@
 	<div id="settings">	<input type="button" value="Reload" onclick='javascript:tick()'><hr>
 											<input type="text" x-webkit-speech id="searcher"><input type="button" value="search" onclick='javascript:find(document.getElementById("searcher").value)'>
 	</div>
+	<div id="special"></div>
 </body>
 
 </html>

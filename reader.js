@@ -1,8 +1,9 @@
+var interDur = 100000
+var number = 40
+
 var subis = ""
 var feeds = ""
-var interDur = 100000
 var where = "re.py"
-var number = 40
 var isLoading = false
 var loadChanged = false
 var curFeed = ""
@@ -67,15 +68,22 @@ function genSubs() {
 			$('<div>')
 				.text(subis[p]["title"])
 				.attr("data-xyz", p)
-				.attr("id", "list_" + p)
-				.attr("class", "list")
+				.attr("id", "listSubs_" + p)
+				.attr("class", "listSubs")
 				.click(function (e) {
-					document.getElementById('list_' + $(this).attr("data-xyz")).style.backgroundColor = "#FF9933"
+					em($(this), $(this).attr("data-xyz"), subis.length)
 					getFeeds("https://www.google.com/reader/api/0/stream/contents/" + subis[$(this).attr("data-xyz")]["id"], number)
 			})
 		)
 	}
 	setLoad(false)
+}
+
+function em(obj, num, max) {
+	for (var o = 0 ; o < max ; o++) {
+		document.getElementById(obj.attr("class") + "_" + o).style.backgroundColor = "#64FE2E"
+	}
+	document.getElementById(obj.attr("class") + "_" + num).style.backgroundColor = "#FF9933"
 }
 
 function genFeeds() {
@@ -93,10 +101,10 @@ function genFeeds() {
 				$('<div>')
 					.text(feeds["items"][p]["title"])
 					.attr("data-xyz", p)
-					.attr("id", "list_" + p)
-      	  .attr("class", "list")
+					.attr("id", "listFeeds_" + p)
+      	  .attr("class", "listFeeds")
 					.click(function (e) {
-						document.getElementById('list_' + $(this).attr("data-xyz")).style.backgroundColor = "#FF9933"
+						em($(this), $(this).attr("data-xyz"), feeds["items"].length)
 						handleContent(feeds["items"][$(this).attr("data-xyz")]["content"]["content"]) // <- The right way !
 					})
 			)
@@ -106,10 +114,10 @@ function genFeeds() {
       	$('<div>')
         	.text(feeds["items"][p]["title"])
 					.attr("data-xyz", p)
-          .attr("id", "list_" + p)
-          .attr("class", "list")
+          .attr("id", "listFeeds_" + p)
+          .attr("class", "listFeeds")
         	.click(function (e) {
-						document.getElementById('list_' + $(this).attr("data-xyz")).style.backgroundColor = "#FF9933"
+						em($(this), $(this).attr("data-xyz"), feeds["items"].length)
 						handleContent(feeds["items"][$(this).attr("data-xyz")]["summary"]["content"])
 					})
     	)
@@ -119,10 +127,10 @@ function genFeeds() {
         $('<div>')
           .text(feeds["items"][p]["title"])
           .attr("data-xyz", p)
-          .attr("id", "list_" + p)
-          .attr("class", "list")
+          .attr("id", "listFeeds_" + p)
+          .attr("class", "listFeeds")
           .click(function (e) {
-						document.getElementById('list_' + $(this).attr("data-xyz")).style.backgroundColor = "#FF9933"
+						em($(this), $(this).attr("data-xyz"), feeds["items"].length)
 						handleContent(feeds["items"][$(this).attr("data-xyz")]["title"])
 					})
       )
@@ -139,10 +147,16 @@ function setNoti(str) {
 	document.getElementById("nots").innerHTML = str
 }
 
+function setSpec(str) {
+	document.getElementById("special").style.display = "block"
+	document.getElementById("special").innerHTML = str
+}
+
 function find(pat) {
 	for (var p in feeds["items"]) {
-		console.log(pat)
-		console.log(JSON.stringify(feeds["items"][p]).search(pat))
+		console.log("Searching: " +pat)
+		var res = JSON.stringify(feeds["items"][p]).search(pat)
+		setSpec(res+ " --> " +JSON.stringify(feeds["items"][p]).substring(res-5,res+5))
 	}
 }
 
