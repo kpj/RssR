@@ -21,7 +21,6 @@
 			border:2px solid black;
 			width:66%;
 			height:80%;
-			overflow:scroll;
 		}
 		#feeds, #content {
 			overflow:scroll;
@@ -34,6 +33,8 @@
 		}
 		#feeds {
 			border-bottom:4px solid black;
+			white-space:nowrap;
+			overflow-x:hidden;
 		}
 		#settings {
 			clear:both;
@@ -61,6 +62,9 @@
 		}
 		.listFeeds:hover {
 			background-color: #0B610B;
+		}
+		.selected {
+			background-color: #FF9933 !important;
 		}
 
 		#special {

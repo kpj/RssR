@@ -79,11 +79,9 @@ function genSubs() {
 	setLoad(false)
 }
 
-function em(obj, num, max) {
-	for (var o = 0 ; o < max ; o++) {
-		document.getElementById(obj.attr("class") + "_" + o).style.backgroundColor = "#64FE2E"
-	}
-	document.getElementById(obj.attr("class") + "_" + num).style.backgroundColor = "#FF9933"
+function em(obj, num) {
+	obj.parent().children().removeClass("selected")
+	obj.addClass("selected")
 }
 
 function genFeeds() {
@@ -91,56 +89,35 @@ function genFeeds() {
 		console.log("Feeds were undefined...")
 		return
 	}
-	console.log(feeds)
   // Delete old entries
   $('#feeds').empty()
   // Append new entries
   for (var p in feeds["items"]) {
+		var curText = feeds["items"][p]["title"]
 		if (feeds["items"][p]["content"] != undefined) {
-			$('#feeds').append(
-				$('<div>')
-					.text(feeds["items"][p]["title"])
-					.attr("data-xyz", p)
-					.attr("id", "listFeeds_" + p)
-      	  .attr("class", "listFeeds")
-					.click(function (e) {
-						em($(this), $(this).attr("data-xyz"), feeds["items"].length)
-						handleContent(feeds["items"][$(this).attr("data-xyz")]["content"]["content"]) // <- The right way !
-					})
-			)
+			curText = feeds["items"][p]["content"]["content"]
 		}
 		else if (feeds["items"][p]["summary"] != undefined) {
-			$('#feeds').append(
-      	$('<div>')
-        	.text(feeds["items"][p]["title"])
-					.attr("data-xyz", p)
-          .attr("id", "listFeeds_" + p)
-          .attr("class", "listFeeds")
-        	.click(function (e) {
-						em($(this), $(this).attr("data-xyz"), feeds["items"].length)
-						handleContent(feeds["items"][$(this).attr("data-xyz")]["summary"]["content"])
-					})
-    	)
+			curText = feeds["items"][p]["summary"]["content"]
 		}
-		else {
-			 $('#feeds').append(
-        $('<div>')
-          .text(feeds["items"][p]["title"])
-          .attr("data-xyz", p)
-          .attr("id", "listFeeds_" + p)
-          .attr("class", "listFeeds")
-          .click(function (e) {
-						em($(this), $(this).attr("data-xyz"), feeds["items"].length)
-						handleContent(feeds["items"][$(this).attr("data-xyz")]["title"])
+
+		$('#feeds').append(
+			$('<div>')
+				.text(feeds["items"][p]["title"])
+				.data("text", curText)
+				.attr("id", "listFeeds_" + p)
+				.attr("class", "listFeeds")
+				.click(function (e) {
+						em($(this))
+						handleContent($(this).data("text"))
 					})
-      )
-		}
-  }
+		)
+	}
 	setLoad(false)
 }
 
-function handleContent(obj) {
-	document.getElementById('content').innerHTML = obj
+function handleContent(str) {
+	document.getElementById('content').innerHTML = str
 }
 
 function setNoti(str) {

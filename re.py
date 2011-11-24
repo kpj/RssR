@@ -10,19 +10,19 @@ auth = string.split(urllib2.urlopen(urllib2.Request('https://www.google.com/acco
 
 # Function to load account-related urls
 def curli(url):
-  return  urllib2.urlopen(urllib2.Request(url, None, {'Authorization':'GoogleLogin auth=%s' %(auth)})).read()
+	return  urllib2.urlopen(urllib2.Request(url, None, {'Authorization':'GoogleLogin auth=%s' %(auth)})).read()
 
 # Function to get all subscriptions
 def getSubs():
-  return curli('https://www.google.com/reader/api/0/subscription/list?output=json')
+	return curli('https://www.google.com/reader/api/0/subscription/list?output=json')
 
 # Function to get all feeds, related to an url-defined subscription
 def getFeeds(url, num=10):
-  return curli('%s?r=n&n=%u'  %(url, num))
+	return curli('%s?r=n&n=%u'  %(url, num))
 
 # List-Entry-To-String
 def lEtS(entry):
-  return "".join(map(str, entry))
+	return "".join(map(str, entry))
 
 
 
